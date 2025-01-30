@@ -266,26 +266,6 @@ def transform_tree_string_to_binary(tree):
         return [transform_tree_string_to_binary(subtree) for subtree in tree]
     return tree
 
-def process_binary(binary_str):
-    result = ""
-    for bit in binary_str:
-        if bit == "0":
-            result += "((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y x))"
-        elif bit == "1":
-            result += "((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y y))"
-    result += ")" * len(binary_str)  # Append the right parentheses
-    return result
-
-def transform_tree_binary_to_lambda(tree):
-    if isinstance(tree, list):
-        # Check if the first element is "text" and the second is a binary string
-        if tree[0] == "text" and isinstance(tree[1], str) and all(bit in "01" for bit in tree[1]):
-            transformed_text = process_binary(tree[1])
-            return [tree[0], transformed_text]  # Replace the binary string with the transformed string
-        else:
-            # Recursively process each element of the list
-            return [transform_tree_binary_to_lambda(subtree) for subtree in tree]
-    return tree  # If it's not a list, return it as is
 
 def unprepend_text(arr):
     if isinstance(arr, list):
@@ -307,14 +287,13 @@ def transform_tree_parse_s_expression(array):
     return array
 
 def process_binary2(binary_str):
-    result = ""
+    result = "(lambda x "
     for bit in binary_str:
         if bit == "0":
             result += "((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y x))"
         elif bit == "1":
             result += "((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y y))"
-    result += "(lambda x (lambda y y))"  # Append the additional lambda expression
-    result += ")" * (len(binary_str))  # Append the right parentheses
+    result += "(lambda x (lambda y y))" + (")" * (len(binary_str) + 1))  # Append the right parentheses
     return result
 
 def transform_tree(tree):
