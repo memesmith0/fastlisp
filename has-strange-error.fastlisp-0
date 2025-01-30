@@ -1,0 +1,25 @@
+((lambda x
+
+(comment names)
+(lambda ibis
+(lambda kestrel
+(lambda kite
+(lambda viero
+
+(comment main)
+((kestrel (text *)) (text  *))
+
+(comment definitions)
+
+(comment viero)
+)(lambda x (lambda y (lambda z (z x y))))
+
+(comment kite)
+)(kestrel ibis)
+
+(comment kestrel)
+)(lambda x (lambda y x))
+
+(comment ibis)
+)(lambda x x)
+)(lambda x x))
