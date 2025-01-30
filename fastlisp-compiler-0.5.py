@@ -106,48 +106,6 @@ def remove_empty_strings(tree):
 
 
 
-def replace_freestanding_vars(tree, env=None, depth=0):
-    """
-    Recursively replace freestanding variables in the tree with the depth at which they were defined.
-
-    Args:
-        tree (list or str): The tree representing the lambda structure.
-        env (dict): A mapping of variable names to their defining depths.
-        depth (int): The current depth of lambda nesting.
-
-    Returns:
-        list or int: A transformed tree with freestanding variables replaced by their defining depth.
-    """
-    if env is None:
-        env = {}
-
-    # If the tree is a variable (symbol)
-    if isinstance(tree, str):
-        # Return the depth at which the variable was defined if it exists in env, else keep it as-is
-        if tree in env:
-            return depth - env[tree]  # Count the number of lambdas since definition
-        return tree  # Freestanding variable with no definition remains unchanged
-
-    # If the tree is a lambda definition
-    if isinstance(tree, list) and len(tree) >= 3 and tree[0] == 'lambda':
-        var_name = tree[1]  # The variable being defined
-        body = tree[2]      # The body of the lambda
-
-        # Create a new environment for the nested scope
-        new_env = env.copy()
-        new_env[var_name] = depth  # Record the current depth where the variable is defined
-
-        # Process the body with the updated environment and increased depth
-        processed_body = replace_freestanding_vars(body, new_env, depth + 1)
-
-        # Process any additional siblings after the lambda body
-        siblings = tree[3:] if len(tree) > 3 else []
-        processed_siblings = [replace_freestanding_vars(sibling, env, depth) for sibling in siblings]
-
-        return ['lambda', var_name, processed_body, *processed_siblings]
-
-    # Otherwise, it's a generic list - process each element
-    return [replace_freestanding_vars(subtree, env, depth) for subtree in tree]
 def omit_after_lambda(tree):
     if not isinstance(tree, list):  # Base case: if it's not a list, return it as-is
         return tree
@@ -252,15 +210,6 @@ def replace_integers_with_ones(array):
             array[i] = "1" * array[i]
     return array  # Return the modified array
 
-def remove_comments(tree):
-    if isinstance(tree, list):
-        # If the first element is 'comment', return None (eliminate it)
-        if tree and tree[0] == 'comment':
-            return None
-        # Otherwise, recursively process the sub-elements
-        return [filtered for item in tree 
-                if (filtered := remove_comments(item)) is not None]
-    return tree  # Return non-list elements as is
 
 def parse_s_expression(expression):
     def tokenize(expr):
@@ -648,25 +597,20 @@ class KeyValueStore:
 
 #todo: rewrite this function so that if the lambda depth is less than the most recent depth in the depth tracker object
 #then go to an earlier depth in the depth tracker
-def repalce_freestanding_vars(tree, lambda_depth_counter, depth_tracker_object):
+def replace_freestanding_vars(tree, lambda_depth_counter, depth_tracker_object):
     #replace variable and function names with the location they were defined at in the lambda tree
     new_tree=[]
-    depth_tracker_object=KeyValueStore()
-    lambda_depth_counter=1
-    lambda_tree_depth_stack=[]
     last_one_was_lambda=0
+    is_in_a_lambda=0
+    lambda_name=""
 
-    def get_lambda_tree_depth(key, store):
-        return depth_tracker_object.get(key)[-1]
-        
-        
     for node in tree:
-
+        
         #if the node is another branch in the tree
         if type(node) == list:
 
             #process that branch
-            new_tree.append(replace_freestanding_vars(node), lambda_depth_counter, depth_tracker_object)
+            new_tree.append(replace_freestanding_vars(node,lambda_depth_counter, depth_tracker_object))
 
         #If a node is not another branch in the tree
         else:
@@ -676,6 +620,7 @@ def repalce_freestanding_vars(tree, lambda_depth_counter, depth_tracker_object):
             if(node == 'lambda'):
                 #rename lambda to '00'
                 last_one_was_lambda = 1
+                is_in_a_lambda=1
                 new_tree.append('00')
 
             #if the node is a lambda name
@@ -683,16 +628,38 @@ def repalce_freestanding_vars(tree, lambda_depth_counter, depth_tracker_object):
 
                 #track the depth of that name
                 last_one_was_lambda = 0
-                if(type(depth_tracker_object.get(node)) != list):
-                   depth_tracker_object.set(node,[])
-                depth_tracker_object.get(node)[-1].append(++lambda_depth_counter)
+                lambda_name=node
+#                print(lambda_name)
+                if(type(depth_tracker_object[0].get(node)) != list):
+                   depth_tracker_object[0].set(node,[])
+                lambda_depth_counter[0]=lambda_depth_counter[0] + 1
+ #               print(depth_tracker_object[0].get(node))
+                depth_tracker_object[0].get(node).append(lambda_depth_counter[0])
+ #              print(depth_tracker_object[0].get(node))
 
 
                    #if the node is a function
             else:
-                new_tree.append(depth_tracker_object.get(node)[-1])
+                new_tree.append((lambda_depth_counter[0]-depth_tracker_object[0].get(node)[-1]) + 1)
+                
+    if is_in_a_lambda==1:
+        depth_tracker_object[0].get(lambda_name).pop()
+        lambda_depth_counter[0]=lambda_depth_counter[0]-1
+        
+    return new_tree
+
+def remove_comments(tree):
+    new_tree=[]
+    for node in tree:
+        if type(node) == list:
+            if(node[0]!="comment"):
+                new_tree.append(remove_comments(node))
+        else:
+            new_tree.append(node)
 
     return new_tree
+            
+                
 
 
 def compile(source):
@@ -707,9 +674,7 @@ def compile(source):
     temp=transform_tree_parse_s_expression(temp)
     temp=unprepend_text(temp)
     temp=remove_empty_strings_from_all(temp)
-    temp=replace_freestanding_vars(temp)
-    temp=omit_after_lambda(temp)
-    temp=replace_lambda(temp)
+    temp=replace_freestanding_vars(temp,[0],[KeyValueStore()])
     temp=prepend_01_to_arrays(temp)
     temp=insert_01_after_00(temp)
     temp=replace_integers_with_ones(temp)
