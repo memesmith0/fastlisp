@@ -29,8 +29,16 @@ cat "$1" |
 
     #break the file up into characters                                                                                                                                      
     busybox awk '{for (i = 1; i <= length($0); i++) printf "%c\n", substr($0, i, 1)}{printf "\n"}'
-    
-    #break characters up into bits
 
+    #hexdump                                                                                                                                                                
+    busybox xxd |
+
+    #colate hextump                                                                                                                                                         
+    busybox awk '{ printf "%s%s%s%s%s%s%s%s",  $2, $3, $4, $5, $6, $7, $8, $9 }' |
+
+    #break the file up into characters                                                                                                                                      
+    busybox awk '{for (i = 1; i <= length($0); i++) printf "%c\n", substr($0, i, 1)}{printf "\n"}'
+
+    #break characters up into bits
 
     
