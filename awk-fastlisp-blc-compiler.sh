@@ -27,8 +27,10 @@ cat "$1" |
     #delete contents of comment nodes
     busybox awk '{ printing = 1 } previous_line == "(" && $0 == "comment" { printing = 0, depth = 1 } printing == 0 && $0 == "(" { depth = depth + 1 } printing == 0 && $0 == ")" { depth = depth - 1 } depth == 0 { printing = 1 } printing == 1 { print $0 } { previous_line = $0 }'
 
-#convert text nodes to lambda nodes
-
+    #break the file up into characters                                                                                                                                      
+    busybox awk '{for (i = 1; i <= length($0); i++) printf "%c\n", substr($0, i, 1)}{printf "\n"}'
+    
+    #break characters up into bits
 
 
     
