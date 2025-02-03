@@ -118,22 +118,25 @@ convert_lambdas(){ busybox awk '
 {
 
 	is_closing_paren=( $0 == "00101001" );
-	if(text_mode){
-		    for(i=0; i<8; i++){
-				    foo=substr($0, i, i + 1);
-				    printf "%s%s", "((lambda x (lambda y (lambda z (z x y)))) ", (foo ? " (lambda x (lambda y x)) "  : "(lambda x (lambda y y ))")
-				    bit_counter++;
-		    		    };
-		    }
-	else if(is_closing_paren){
+        if(is_closing_paren && text_mode){
 		printf "%s%s", "(lambda x (lambda y y))";
-		for(i=0;bitcounter==0; bitcounter--){
+		for(i=0;bit_counter > 0; bit_counter--){
 				      printf "%s", ")";
 				      };
 	        printf("\n");
 
 	}
+	else if(text_mode){
+		    for(i = 0; i < 8; i++){
+				    foo=substr($0, i, 1);
+				    printf "%s%s", "((lambda x (lambda y (lambda z (z x y)))) ", (foo ? " (lambda x (lambda y x)) "  : "(lambda x (lambda y y ))")
+				    bit_counter++;
+		    		    };
+
+				    }
 	else { print $0 };
+
+	if(is_closing_paren){text_mode=0};
 	a5=a4;
 	a4=a3;
 	a3=a2;
@@ -141,14 +144,9 @@ convert_lambdas(){ busybox awk '
  	a1=a0;
 	a0=$0;
 
-#	if(a5=="00101000" && a4=="01110100" && a3=="01100101" && a2=="01111000" && a1=="01110100" && a0 == "00000000"){
-#	print "hello"
-#	}
-
 	if((!is_closing_paren) && a5=="00101000" && a4=="01110100" && a3=="01100101" && a2=="01111000" && a1=="01110100" && a0 == "00000000"){
-	print "hello";
-			       text_mode=1;
-			       bit_counter=1;
+	text_mode=1;
+	bit_counter=1;
 
 
 }
@@ -169,5 +167,5 @@ cat "$1" |
     break_file_into_characters |
     turn_characters_into_ints |
     turn_ints_into_binary |
-    prepend_0 #|
-#    convert_lambdas
+    prepend_0 |
+    convert_lambdas
