@@ -28,19 +28,72 @@ cat "$1" |
     busybox awk '{ printing = 1 } previous_line == "(" && $0 == "comment" { printing = 0, depth = 1 } printing == 0 && $0 == "(" { depth = depth + 1 } printing == 0 && $0 == ")" { depth = depth - 1 } depth == 0 { printing = 1 } printing == 1 { print $0 } { previous_line = $0 }' |
 
     #break the file up into characters
-#    busybox awk '{for (i = 1; i <= length($0); i++) printf "%c\n", substr($0, i, 1)}{printf "\n"}' 
+    busybox awk '{for (i = 1; i <= length($0); i++) printf "%c\n", substr($0, i, 1)}{printf "\n"}' |
 
-    #hexdump
-    busybox xxd -p |
+    
+    busybox awk 'BEGIN    { _ord_init() }
 
-    #break the file up into two character lines
-    busybox awk '{for (i = 1; i <= length($0); i=i+2) printf "%c%c\n", substr($0, i, 1), substr($0, i+1,1)}' |
+function _ord_init(    low, high, i, t)
+{
+    low = sprintf("%c", 7) # BEL is ascii 7
+    if (low == "\a") {    # regular ascii
+        low = 0
+        high = 127
+    } else if (sprintf("%c", 128 + 7) == "\a") {
+        # ascii, mark parity
+        low = 128
+        high = 255
+    } else {        # ebcdic(!)
+        low = 0
+        high = 255
+    }
 
-      #convert hex to binary
-    busybox awk 'function hex2bin(hex){ if(hex=="0"){return "0000"} if(hex=="1"){return "0001"} if(hex=="2"){return "0010"} if(hex=="3"){return "0011"} if(hex=="4"){return "0100"} if(hex=="5"){return "0101"} if(hex=="6"){return "0110"} if(hex=="7"){return "0111"} if(hex=="8"){return "1000"} if(hex=="9"){return "1001"} if(hex=="a"){return "1010"} if(hex=="b"){return "1011"} if(hex=="c"){return "1100"} if(hex=="d"){return "1101"} if(hex=="e"){return "1110"} if(hex=="f"){return "1111"}} {a=substr($0,0,1); b=substr($0,1,1); printf "%s%s" hex2bin(a), hex2bin(b); print ""}'
+    for (i = low; i <= high; i++) {
+        t = sprintf("%c", i)
+        _ord_[t] = i
+    }
+}
+function ord(str,    c)
+{
+    # only first character is of interest
+    c = substr(str, 1, 1)
+    return _ord_[c]
+}
+
+function chr(c)
+{
+    # force c to be numeric by adding 0
+    return sprintf("%c", c + 0)
+}
+
+{print ord($0)}
+' |
+
+busybox awk '{
+  num = $0;
+  if (num < 0) {
+    print "Negative numbers not supported"; # Or handle them as you wish
+    next; # Skip to the next line
+  }
+  if (num == 0) {
+    print "0";
+    next; # Skip to the next line
+  }
+
+  bin = "";
+  while (num > 0) {
+    rem = num % 2;
+    bin = rem bin; # Prepend the remainder
+    num = int(num / 2); # Integer division is crucial
+  }
+  print bin;
+}'
 
 
-#
+#    busybox awk '{if($0 == "00101001"){print "yes"}}'
+
+
+
 #    busybox awk '
 #{
 #
@@ -52,7 +105,7 @@ cat "$1" |
 #
 #		    for(i=0; i<8; i++){
 #				    foo=substr($0, i, i + 1);
-##				    printf "%s%s", "((lambda x (lambda y (lambda z (z x y)))) ", (foo ? " (lambda x (lambda y x)) "  : "(lambda x (lambda y y ))")
+#				    printf "%s%s", "((lambda x (lambda y (lambda z (z x y)))) ", (foo ? " (lambda x (lambda y x)) "  : "(lambda x (lambda y y ))")
 #				    bit_counter++;
 #		    		    };
 #		    }
@@ -65,10 +118,10 @@ cat "$1" |
 #	        printf("\n");
 #n
 #	}
-##	else {print $0};
+#	else {print $0};
 #
 #	{a5=a4; fa4=a3; a3=a2; a2=a1; a1=a0; a0=$0};
-########################	if((!is_closing_paren) && a5=="00101000" && a4=="01010100" && a3=="01000101" && a2=="01011000" && a1=="01010100" && a0=="00100000"){text_mode=1;bit_counter=1;print "hello";}
+###	if((!is_closing_paren) && a5=="00101000" && a4=="01010100" && a3=="01000101" && a2=="01011000" && a1=="01010100" && a0=="00100000"){text_mode=1;bit_counter=1;print "hello";}
 
 #}
 #'
@@ -93,27 +146,3 @@ cat "$1" |
     
 
 
-    
-
-    #convert text into binary
- #awk '   {
- # char = substr($0, 1, 1);
- # code = sprintf("%d", char);  # Get the ASCII code
-
- # for (bit_pos = 7; bit_pos >= 0; bit_pos--) {
- #   bit = (code >> bit_pos) & 1;
- #   printf "%d", bit;
- # }
- # printf "\n";
-#}'
-#    awk '{
-#  char = substr($0, 1, 1);
-#  for (bit_pos = 7; bit_pos >= 0; bit_pos--) {
-#    printf "%d", (char >> bit_pos) & 1;
-#  }
-#  printf "\n";
-#}'
-#    busybox awk '{ for(bit_pos = 7; bit_pos >= 0; bit_pos--){ printf "%d", (ascii($0) >> bit_pos) & 1;}}'
-
-
-    
