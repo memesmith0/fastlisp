@@ -17,17 +17,25 @@ convert_newlines_to_spaces(){ busybox awk '{ printf "%s ", $0 }' ; } ;
 
 convert_spaces_to_newlines(){ busybox awk '{ gsub(/ /, "\n"); print }' ; } ;
 
-    #convert ) to \n)\n
-separate_right_paren(){ busybox awk '{ gsub(/\)/, "\n)\n"); print; }' ; } ;
+#remove extreneous newlines
+remove_extreneious_newlines(){ busybox awk '{
+
+print "hello"			       
+
+}' ; }
 
 #convert ( to \n(\n
-separate_left_paren(){ busybox awk '{ gsub(/\(/, "\n(\n"); print; }' ; } ;
+separate_left_paren(){ busybox awk '{ gsub(/\(/, "(\n"); print; }' ; } ;
+
+    #convert ) to \n)\n
+separate_right_paren(){ busybox awk '{ gsub(/\)/, "\n)"); print; }' ; } ;
+
 
     #delete contents of comment nodes
 delete_comments(){ busybox awk '{ printing = 1 } previous_line == "(" && $0 == "comment" { printing = 0, depth = 1 } printing == 0 && $0 == "(" { depth = depth + 1 } printing == 0 && $0 == ")" { depth = depth - 1 } depth == 0 { printing = 1 } printing == 1 { print $0 } { previous_line = $0 }' ; } ;
 
 #break the file up into characters
-break_file_into_characters(){ busybox awk '{for (i = 1; i <= length($0); i++) printf "%c\n", substr($0, i, 1)}{printf "\n"}' ; } ;
+break_file_into_characters(){ busybox awk '{if($0 != "(" && $0 != ")") {for (i = 1; i <= length($0); i++) printf "%c\n", substr($0, i, 1); {printf "\n"}} else{print $0}}' ; } ;
 
 
 
@@ -110,11 +118,7 @@ convert_lambdas(){ busybox awk '
 {
 
 	is_closing_paren=( $0 == "00101001" );
-	if(is_closing_paren){print "yes"};
-	if($0 == "00101001"){print "yes"};
-
 	if(text_mode){
-
 		    for(i=0; i<8; i++){
 				    foo=substr($0, i, i + 1);
 				    printf "%s%s", "((lambda x (lambda y (lambda z (z x y)))) ", (foo ? " (lambda x (lambda y x)) "  : "(lambda x (lambda y y ))")
@@ -127,47 +131,43 @@ convert_lambdas(){ busybox awk '
 				      printf "%s", ")";
 				      };
 	        printf("\n");
-n
+
 	}
-	else {print $0};
+	else { print $0 };
+	a5=a4;
+	a4=a3;
+	a3=a2;
+	a2=a1;
+ 	a1=a0;
+	a0=$0;
 
-	{a5=a4; fa4=a3; a3=a2; a2=a1; a1=a0; a0=$0};
-	if((!is_closing_paren) && a5=="00101000" && a4=="01010100" && a3=="01000101" && a2=="01011000" && a1=="01010100" && a0=="00100000"){text_mode=1;bit_counter=1;print "hello";}
+#	if(a5=="00101000" && a4=="01110100" && a3=="01100101" && a2=="01111000" && a1=="01110100" && a0 == "00000000"){
+#	print "hello"
+#	}
 
+	if((!is_closing_paren) && a5=="00101000" && a4=="01110100" && a3=="01100101" && a2=="01111000" && a1=="01110100" && a0 == "00000000"){
+	print "hello";
+			       text_mode=1;
+			       bit_counter=1;
+
+
+}
 }
 ' ; }
 
-
-#00101000      "("
-#01010100      "T"
-#01000101      "E"
-#01011000      "X"
-#01010100      "T"
-#00100000      " "
-
+# 00101000 "(" 01110100 "t" 01100101 "e" 01111000 "x" 01110100 "t"
+# 00101000 "(" 01110100 "t" 01100101 "e" 01111000 "x" 01110100 "t"
 
 
 #get input file into pipeline
-cat "$1" convert_newlines_to_spaces |
-	 convert_spaces_to_newlines | 
-	 separate_right_paren |
-         separate_left_paren |
-	 delete_comments |
-	 break_file_into_characters |
-	 turn_characters_into_ints |
-	 turn_ints_into_binary |
-	 prepend_0 #|
-#	 convert_lambdas
-
-    
-
-
-
-
-
-
-
-
-    
-
-
+cat "$1" |
+    convert_newlines_to_spaces |
+    convert_spaces_to_newlines |
+    separate_left_paren |
+    separate_right_paren |
+    delete_comments |
+    break_file_into_characters |
+    turn_characters_into_ints |
+    turn_ints_into_binary |
+    prepend_0 #|
+#    convert_lambdas
