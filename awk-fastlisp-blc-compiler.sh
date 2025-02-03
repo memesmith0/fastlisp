@@ -20,7 +20,7 @@ convert_spaces_to_newlines(){ busybox awk '{ gsub(/ /, "\n"); print }' ; } ;
 #remove extreneous newlines
 remove_extreneious_newlines(){ busybox awk '{
 
-print "hello"			       
+       print "hello"			       
 
 }' ; }
 
@@ -32,10 +32,43 @@ separate_right_paren(){ busybox awk '{ gsub(/\)/, "\n)"); print; }' ; } ;
 
 
     #delete contents of comment nodes
-delete_comments(){ busybox awk '{ printing = 1 } previous_line == "(" && $0 == "comment" { printing = 0, depth = 1 } printing == 0 && $0 == "(" { depth = depth + 1 } printing == 0 && $0 == ")" { depth = depth - 1 } depth == 0 { printing = 1 } printing == 1 { print $0 } { previous_line = $0 }' ; } ;
+delete_comments(){ busybox awk '{
+if(depth){
+#	print "depth"
+	if($0 == "("){ depth++ }
+	else if($0 == ")"){ depth-- }
+	if($0== ")" && depth == 0){j=1}
+
+}
+else{
+#	print "\n\nno depth"
+#	printf "!pd is: %s\n" , !pd
+#	printf "c is: %s\n" , c
+#	printf "$0 is: %s\n", $0
+#	printf "pl is: %s\n", pl
+#	printf "length of pl is: %s\n", length(pl)
+	if(pl == "(" && $0 == "comment"){depth++}
+	else if(c && !pd && pl){
+#	print "printing"
+	print pl
+
+	}
+#	else "you shouldnt reach me b"
+}
+if(j){pl=""; j=0}else{pl = $0}
+pd = depth
+c++
+
+}' ; } ;
+
+break_up_left_then_right_paren(){ busybox awk '{if($0 == ")("){printf ")\n("}else{print $0}}' ; } ;
 
 #break the file up into characters
-break_file_into_characters(){ busybox awk '{if($0 != "(" && $0 != ")") {for (i = 1; i <= length($0); i++) printf "%c\n", substr($0, i, 1); {printf "\n"}} else{print $0}}' ; } ;
+break_file_into_characters(){ busybox awk '{
+
+if($0 != "(" && $0 != ")") {
+      for (i = 1; i <= length($0); i++) printf "%c\n", substr($0, i, 1);
+      {printf "\n"}} else{print $0}}' ; } ;
 
 
 
@@ -120,9 +153,9 @@ convert_lambdas(){ busybox awk '
 	is_closing_paren=( $0 == "00101001" );
         if(is_closing_paren && text_mode){
 		printf "%s%s", "(\nl\na\nm\nb\nd\na\n \nx\n \n(\nl\na\nm\nb\nd\na\n \ny\n \ny\n)\n)\n";
-		for(i=0;bit_counter > 0; bit_counter--){
-				      printf "%s", ")";
-				      };
+		for(i=0;bit_counter > 1; bit_counter--){
+				      printf "%s", ")\n";
+	p			      };
 
 				      #this seems wrong should only need to print one \n
 	        printf "\n\n";
@@ -145,6 +178,7 @@ convert_lambdas(){ busybox awk '
 	a2=a1;
  	a1=a0;
 	a0=$0;
+
 
 	if((!is_closing_paren) && a5=="00101000" && a4=="01110100" && a3=="01100101" && a2=="01111000" && a1=="01110100" && a0 == "00000000"){
 	text_mode=1;
@@ -273,6 +307,29 @@ replace_binary_with_int(){ busybox awk '{
 
 int_to_char(){ busybox awk '{ if($0){printf "%c", $0 }else{printf " "}}' ; } ;
 
+skip_empty_lines(){ busybox awk '{if($0 != ""){ print $0 }}' ; } ;
+
+skip_text(){ busybox awk '{
+
+	a5=a4;
+	a4=a3;
+	a3=a2;
+	a2=a1;
+ 	a1=a0;
+	a0=$0;
+
+
+	if(!(a5=="00101000" && a4=="01110100" && a3=="01100101" && a2=="01111000" && a1=="01110100" && a0 == "00000000")){
+
+	print a5
+
+	}
+
+
+
+
+}END{print a4; print a3; print a2; print a1; print a0}' ; } ;
+
 
 # 00101000 "(" 01110100 "t" 01100101 "e" 01111000 "x" 01110100 "t"
 # 00101000 "(" 01110100 "t" 01100101 "e" 01111000 "x" 01110100 "t"
@@ -284,17 +341,21 @@ cat "$1" |
     convert_spaces_to_newlines |
     separate_left_paren |
     separate_right_paren |
-    delete_comments #|
-#    break_file_into_characters |
-#    turn_characters_into_ints |
-#    turn_ints_into_binary |
-#    prepend_0 |
-#    convert_lambdas |
-#    append_text_to_nonbinary_lines |
-#    turn_text_nodes_into_ints |
-#    turn_text_nodes_into_binary |
-#    prepend_0_to_text_node |
-#    replace_whitespace_with_00000000 |
-#    replace_binary_with_int |
-#    int_to_char
-    
+    delete_comments |
+    break_up_left_then_right_paren |
+    separate_left_paren |
+    separate_right_paren |
+    skip_empty_lines |
+    break_file_into_characters |
+    turn_characters_into_ints |
+    turn_ints_into_binary |
+    prepend_0 |
+    convert_lambdas |
+    skip_text |
+    append_text_to_nonbinary_lines |
+    turn_text_nodes_into_ints |
+    turn_text_nodes_into_binary |
+    prepend_0_to_text_node |
+    replace_whitespace_with_00000000 |
+    replace_binary_with_int |
+    int_to_char 
