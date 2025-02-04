@@ -336,7 +336,6 @@ replace_freestanding_vars_and_insert_00(){ busybox awk 'BEGIN{
 depth["lambda", "i"]=0;
 }
 {
-
 if($0 == "("){ paren_depth++; print "("}
 else if( $0 == ")"){
 
@@ -345,11 +344,12 @@ else if( $0 == ")"){
 
      ##if the the depth is lower than the last lambda depth then
 #     printf "our lambda depth: %s\n" depths["lambda", depths["lambda", "i"]]
-     if(paren_depth < depths["lambda", depths["lambda", "i"]]){
-
-
-
      lambda_depth=depths["lambda", "i"]
+     if(paren_depth < depths["lambda", lambda_depth, "paren"]){
+
+
+
+
      ##pop lambda paren depth
      delete depths["lambda", lambda_depth, "paren"]
      name=depths["lambda", lambda_depth, "name"]
@@ -389,7 +389,6 @@ else if(last == "lambda"){
 
 }
 else{
-
 	#print replaced name
 	print (depths["lambda", "i"] - depths[$0, depths[$0, "i"]]) + 1
 
@@ -437,6 +436,8 @@ else{
 	print $0
 }
 }' ; } ;
+
+append_text_to_1(){ busybox awk '{if($0=="1"){printf "text: 1\n"}else{print $0}}' ; } ;
  
 
 
@@ -487,13 +488,14 @@ cat "$1" |
 
     replace_freestanding_vars_and_insert_00 |
     append_text_to_nonbinary_lines |
+    append_text_to_1 |
     unappend_text_from_paren_lines |
 
 ############################################################
 #if this code above breaks it is slightly bad
 ############################################################
 
-    turn_texts_ints_into_binary #|
+   turn_texts_ints_into_binary #|
 
 ###########################################################
 #above code easily fixed slightly worried if it breaks
