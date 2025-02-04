@@ -10,6 +10,9 @@
 #
 #THIS SOFTWARE.
 
+#tester 
+#lisbeths@penguin:~$ clear && busybox sh awk-fastlisp-to-blc-compiler.sh fastlisp-program  | awk '{nl++; printf "%s %s\n", nl, $0}' > scrap.lisp
+
     #convert newlines to spaces
 convert_newlines_to_spaces(){ busybox awk '{ printf "%s ", $0 }' ; } ;
 
@@ -439,11 +442,6 @@ else{
 
 append_text_to_1(){ busybox awk '{if($0=="1"){printf "text: 1\n"}else{print $0}}' ; } ;
  
-
-
-
-# 00101000 "(" 01110100 "t" 01100101 "e" 01111000 "x" 01110100 "t"
-# 00101000 "(" 01110100 "t" 01100101 "e" 01111000 "x" 01110100 "t"
 
 
 #get input file into pipeline
