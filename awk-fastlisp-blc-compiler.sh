@@ -330,6 +330,116 @@ skip_text(){ busybox awk '{
 
 }END{print a4; print a3; print a2; print a1; print a0}' ; } ;
 
+remove_text(){ busybox awk '$0 != "text"' ; } ;
+
+replace_freestanding_vars_and_insert_00(){ busybox awk 'BEGIN{
+depth["lambda", "i"]=0;
+}
+{
+
+if($0 == "("){ paren_depth++; print "("}
+else if( $0 == ")"){
+
+     print ")"
+     paren_depth--
+
+     ##if the the depth is lower than the last lambda depth then
+#     printf "our lambda depth: %s\n" depths["lambda", depths["lambda", "i"]]
+     if(paren_depth < depths["lambda", depths["lambda", "i"]]){
+
+
+
+     lambda_depth=depths["lambda", "i"]
+     ##pop lambda paren depth
+     delete depths["lambda", lambda_depth, "paren"]
+     name=depths["lambda", lambda_depth, "name"]
+     #pop name depth
+     delete depths[name, depths[name, "i"]]
+     #decrement name depth
+     delete depths["lambda", lambda_depth, "name"]
+     #decriment lambda depth
+     depths["lambda", "i"]--
+     #decriment name depth
+     depths[name, "i"]--
+
+}
+
+}
+else if($0 == "lambda"){
+     	print "00"
+}
+else if(last == "lambda"){
+
+
+	     
+     	#increment lambda depth
+	depths["lambda", "i"]++
+
+	#store paren depth at lambda depth
+	depths["lambda", depths["lambda", "i"], "paren"]=paren_depth
+	#store name at lambda depth
+        depths["lambda", depths["lambda", "i"], "name"]=$0
+
+	#prep name for storage
+	if(!depths[$0, "i"]) depths[$0, "i"]=0
+
+
+	#at the current index of name store lambda depth
+	depths[$0,depths[$0,"i"]]=depths["lambda","i"]
+
+}
+else{
+
+	#print replaced name
+	print (depths["lambda", "i"] - depths[$0, depths[$0, "i"]]) + 1
+
+}
+
+
+last=$0
+lastlast=last
+
+
+}end{print $0}'
+
+					 }
+
+
+unappend_text_from_paren_lines(){ busybox awk '{
+
+
+if($1 == "text:"){
+      if(($2 == "(") || ($2 == ")")){
+      print $2
+      }
+      else{
+	print $0
+      }
+}
+else{print $0}
+
+
+}' ; }
+
+
+
+
+turn_texts_ints_into_binary(){ busybox awk '{
+
+if($1 == "text:"){
+  num = $2;
+  for(i=$2; i>0; i--){
+  printf "1"
+  }
+  printf "0\n"
+}
+else{
+	print $0
+}
+}' ; } ;
+ 
+
+
 
 # 00101000 "(" 01110100 "t" 01100101 "e" 01111000 "x" 01110100 "t"
 # 00101000 "(" 01110100 "t" 01100101 "e" 01111000 "x" 01110100 "t"
@@ -358,4 +468,42 @@ cat "$1" |
     prepend_0_to_text_node |
     replace_whitespace_with_00000000 |
     replace_binary_with_int |
-    int_to_char 
+    int_to_char |
+
+# if the above code is broken fucking damn it. damn it. dont break above code
+#############################################################################
+    convert_spaces_to_newlines |
+    separate_left_paren |
+    separate_right_paren |
+    break_up_left_then_right_paren |
+    separate_left_paren |
+    separate_right_paren |
+    skip_empty_lines |
+    remove_text |
+
+############################################################
+#hopefully this above code isnt broken either fucking hellll
+############################################################
+
+    replace_freestanding_vars_and_insert_00 |
+    append_text_to_nonbinary_lines |
+    unappend_text_from_paren_lines |
+
+############################################################
+#if this code above breaks it is slightly bad
+############################################################
+
+    turn_texts_ints_into_binary #|
+
+###########################################################
+#above code easily fixed slightly worried if it breaks
+###########################################################
+
+#append_01
+#flatten_sexp
+
+    
+    
+
+
+
