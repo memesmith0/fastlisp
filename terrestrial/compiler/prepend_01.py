@@ -28,8 +28,8 @@ def prepend_01(x):
         elif(is_first_node and node == "lambda"):
             is_first_node=0
             tree.append("00")
-            for i in range(len(x)-2):
-                tree.append("01")
+#            for i in range(len(x)-2):
+#                tree.append("01")
 
         elif(is_first_node and node !=0):
             is_first_node=0
