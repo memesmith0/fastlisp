@@ -18,6 +18,7 @@ x=sys.stdin.read()
 x=eval(x)
 
 def replace_freestanding_vars(x, depth, lambda_depth, name_dict):
+    
     tree=[]
 
     last_node_was_lambda=0
@@ -37,17 +38,14 @@ def replace_freestanding_vars(x, depth, lambda_depth, name_dict):
             if not (node in name_dict):
                 name_dict[node] = []
 
-                
+ 
             name_dict[node].append(lambda_depth)
             last_node_was_lambda=0
 
             
         else:
-
             
-            tree.append( name_dict[node][-1])
-#            print( name_dict[node][-1])
-#            print("hello")
+            tree.append((lambda_depth- name_dict[node][-1]) + 1)
 
             
     if(am_in_lambda_node):
@@ -68,7 +66,7 @@ def flatten(tree):
 
         
 
-x=replace_freestanding_vars(x,0,-1,{})
+x=replace_freestanding_vars(x,0,0,{})
 
 #x=flatten(x)
 
