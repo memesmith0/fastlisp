@@ -17,7 +17,7 @@ import re
 x=sys.stdin.read()
 x=eval(x)
 
-def replace_freestanding_vars(x, depth, lambda_depth, name_dict):
+def replace_freestanding_vars(x, lambda_depth, name_dict):
     
     tree=[]
 
@@ -26,8 +26,7 @@ def replace_freestanding_vars(x, depth, lambda_depth, name_dict):
     lambda_node_name=""
     for node in x:
         if type(node) == list:
-            depth=depth+1
-            tree.append(replace_freestanding_vars(node, depth, lambda_depth, name_dict))
+            tree.append(replace_freestanding_vars(node, lambda_depth, name_dict))
         elif node=="lambda" :
             tree.append("lambda")
             lambda_depth=lambda_depth+1
@@ -44,8 +43,9 @@ def replace_freestanding_vars(x, depth, lambda_depth, name_dict):
 
             
         else:
-            
-            tree.append((lambda_depth- name_dict[node][-1]) + 1)
+
+            ########where should we be adding or substracting 1???
+            tree.append((lambda_depth - name_dict[node][-1]) + 1)
 
             
     if(am_in_lambda_node):
@@ -66,7 +66,7 @@ def flatten(tree):
 
         
 
-x=replace_freestanding_vars(x,0,0,{})
+x=replace_freestanding_vars(x,0,{})
 
 #x=flatten(x)
 
