@@ -1,0 +1,305 @@
+(comment (lambda x ( (comment names)
+((lambda ibis
+(lambda kestrel
+(lambda kite
+(lambda viero
+
+(comment main)
+(lambda x x)
+
+(comment definitions)
+
+(comment viero)
+)(lambda x (lambda y (lambda z (z x y))))
+
+(comment kite)
+)(kestrel ibis)
+
+(comment kestrel)
+)(lambda x (lambda y x))
+
+(comment ibis)
+)(lambda x x))
+
+(text *))))
+
+
+
+
+ (comment (lambda x ((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y y)) ((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y x)) (lambda x (lambda y y))))))
+
+(comment (lambda x (text *)))
+
+(comment (    (lambda x (lambda y x))  (lambda x (lambda *)) (lambda x (lambda **))))
+
+(comment
+
+holy code
+
+((lambda x x) (((lambda x (lambda y x))(((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y y))) (lambda x (lambda y y))))(lambda x (lambda y x))))
+
+)
+
+(comment
+
+(lambda x  (((lambda x (lambda y x))(((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y y))) (lambda x (lambda y y))))(lambda x (lambda y x))))
+
+)
+
+(comment super holy of holies
+
+(lambda x  ((lambda ibis
+
+(((lambda x (lambda y x))(((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y y))) (lambda x (lambda y y))))(lambda x (lambda y x)))
+
+
+)(lambda x x)))
+
+)
+
+
+
+
+
+
+
+
+
+
+(comment 
+(lambda x  ((lambda ibis
+
+	((lambda kestrel 
+
+(((lambda x (lambda y x))(((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y y))) (lambda x (lambda y y))))(lambda x (lambda y x)))
+
+
+)(lambda x (lambda y x)))
+)(lambda x x)))
+
+)
+
+
+
+
+
+
+
+
+
+(comment holy holy holy )
+
+(comment
+(lambda x  ((lambda ibis
+
+	((lambda kestrel 
+
+(((lambda x (lambda y x))(((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y y))) (lambda x (lambda y y))))(lambda x (lambda y x)))
+
+
+)(lambda x (lambda y x)))
+)(lambda x x)))
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(comment
+(comment holy holy holy holy)
+
+
+(lambda x  ((lambda ibis
+
+	((lambda kestrel 
+
+((kestrel(((lambda x (lambda y (lambda z (z x y)))) (lambda x (lambda y y))) (lambda x (lambda y y))))(lambda x (lambda y x)))
+
+
+)(lambda x (lambda y x)))
+)(lambda x x)))
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(comment holy holy holy holy holy)
+
+(lambda x  ((lambda ibis
+
+	((lambda kestrel
+
+	((lambda kite
+
+((kestrel(((lambda x (lambda y (lambda z (z x y)))) kite) kite))kestrel)
+
+
+)(kestrel ibis))
+
+)(lambda x (lambda y x)))
+
+)(lambda x x)))
+
+
+
+
+
+
+
+
+
+
+
+(comment
+
+
+(comment holy holy holy holy holy)
+
+(lambda x  ((lambda ibis
+
+	((lambda kestrel
+
+	((lambda kite
+
+((kestrel(((lambda x (lambda y (lambda z (z x y)))) kite) kite))kestrel)
+
+
+)(kestrel ibis))
+
+)(lambda x (lambda y x)))
+
+)(lambda x x)))
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(comment
+
+(comment holy holy holy holy holy holy)
+
+(lambda x  ((lambda ibis
+
+	((lambda kestrel
+
+	((lambda kite
+
+	((lambda viero
+
+((kestrel((viero kite) kite))kestrel)
+
+)(lambda x (lambda y (lambda z (z x y)))))
+
+)(kestrel ibis))
+
+)(lambda x (lambda y x)))
+
+)(lambda x x)))
+
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(comment holy krsna edition praise christ)
+
+(lambda x  ((lambda ibis
+
+	((lambda kestrel
+
+	((lambda kite
+
+	((lambda viero
+
+((kestrel((viero kite) kite))kestrel)
+
+)(lambda x (lambda y (lambda z (z x y)))))
+
+)(kestrel ibis))
+
+)(lambda x (lambda y x)))
+
+)(lambda x x)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
