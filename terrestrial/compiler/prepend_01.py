@@ -18,12 +18,17 @@ x=eval(sys.stdin.read())
 
 def prepend_01(x):
     tree=[]
+ #A   this_is_a_lambda=was_lambda
+    was_lambda=0
 
     is_first_node=1
     for node in x:
         if type(node) == list:
-           tree.append(prepend_01(node))
-           is_first_node=0
+            if is_first_node:
+                for i in range(len(x)-1):
+                    tree.append("01")
+            tree.append(prepend_01(node))
+            is_first_node=0
         
         elif(is_first_node and node == "lambda"):
             is_first_node=0
@@ -35,6 +40,7 @@ def prepend_01(x):
             is_first_node=0
             for i in range(len(x)-1):
                 tree.append("01")
+            tree.append(str(node))
         else:
             tree.append(str(node))
 
@@ -57,5 +63,7 @@ x=prepend_01(x)
 x=flatten(x)
 
 x="".join(x)
+
+#x="000101" + x 
 
 print(x)
