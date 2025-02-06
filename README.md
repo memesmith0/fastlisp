@@ -15,6 +15,7 @@ lambdas are like building blocks that can build programs. you can think of them 
 (lambda x x)
 
 strings contain text made out of characters like 'a', 'b', 'c', '5', or '%'.
+
 (text hello, world!)
 
 every valid fastlisp program is a specific lambda. that lambda can be executed on any true scottish lambda calculus interpreter.
