@@ -64,6 +64,6 @@ x=flatten(x)
 
 x="".join(x)
 
-#x="000101" + x 
+x="00" + x 
 
 print(x)
