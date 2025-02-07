@@ -1,0 +1,314 @@
+(comment
+Copyright (C) 2025 by john morris beck <john.morris.beck@hotmail.com>
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is#hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL
+
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER
+
+#RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+
+THIS SOFTWARE.
+)
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## intro
+##
+##
+##
+#############################################################################################
+#############################################################################################)
+
+(comment
+
+
+
+
+
+
+
+
+
+
+)
+
+
+
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## core langauge names
+##
+##
+##
+#############################################################################################
+#############################################################################################)
+
+
+((lambda ibis
+
+((lambda kestrel
+
+((lambda kite
+
+((lambda viero
+
+((lambda fix
+
+((lambda is_end_of_list
+
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## convenient names
+##
+##
+##
+#############################################################################################
+#############################################################################################)
+((lambda true
+((lambda false
+((lambda if
+((lambda pair
+((lambda cons
+((lambda head
+((lambda tail
+((lambda first
+((lambda second
+((lambda car
+((lambda cdr
+((lambda and
+((lambda or
+((lambda not
+((lambda nor
+((lambda nand
+((lambda constant
+
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## inferior maths names
+##
+##
+##
+#############################################################################################
+#############################################################################################)
+((lambda bad_zero
+((lambda bad_increment
+((lambda bad_add
+((lambda bad_multiply
+((lambda bad_exponentiate
+((lambda bad_decrement
+((lambda bad_subtract
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## useful program names
+##
+##
+##
+#############################################################################################
+#############################################################################################)
+((lambda bad_factorial
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## main program
+##
+##
+##
+#############################################################################################
+#############################################################################################)
+
+
+
+
+(text echo hello)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## useful programs definitions
+##
+##
+#############################################################################################
+#############################################################################################)
+
+
+(comment bad_factorial)
+)(lambda f (lambda n ((not n) (bad_increment bad_zero) (bad_multiply n (f (bad_decrement n)))))))
+
+
+
+
+
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## inferior maths definitions
+##
+##
+#############################################################################################
+#############################################################################################)
+(comment bad_subtract)
+)(lambda m (lambda n (n bad_decrement m))))
+
+(comment bad_decrement)
+)(lambda n (lambda f (lambda x (n (lambda g (lambda h (h (g f)))) (lambda u x)(lambda u u))))))
+
+(comment bad_exponentiate)
+)(lambda b (lambda n (n b))))
+
+(comment bad_multiply)
+)(lambda m (lambda n (lambda f (m (n f))))))
+
+
+(comment bad_add)
+)(lambda m (lambda n (n bad_increment m))))
+
+(comment bad_increment)
+)(lambda n (lambda f (lambda x (n f x)))))
+
+
+(comment bad_zero)
+)(lambda f (lambda x x)))
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## conventient definitions
+##
+##
+#############################################################################################
+#############################################################################################)
+(comment constant)
+)kestrel)
+
+(comment nand)
+)(lambda x (lambda y (not (and x y)))))
+
+(comment nor)
+)(lambda x (lambda y (not (or x y)))))
+
+(comment not)
+)(lambda x (x kite kestrel)))
+
+
+(comment or)
+)(lambda x (lambda y (x kestrel y))))
+
+(comment and)
+)(lambda x (lambda y (x y kite))))
+
+
+(comment cdr)
+)tail)
+
+(comment car)
+)head)
+
+(comment second)
+)tail)
+
+(comment first)
+)head)
+
+
+(comment tail)
+)(lambda x (x kite)))
+
+
+(comment head)
+)(lambda x (x kestrel)))
+
+(comment cons)
+)viero)
+
+(comment pair)
+)viero)
+
+(comment if)
+)ibis)
+
+(comment false)
+)kite)
+
+
+(comment true)
+)kestrel)
+
+(comment ####################################################################################
+#############################################################################################
+##
+##
+##
+## definitions of core language
+##
+##
+#############################################################################################
+#############################################################################################)
+(comment is_end_of_list)
+)(lambda l (l (lambda h (lambda t (lambda d kite))) kestrel)))
+
+(comment fix)
+)(lambda f ((lambda x ( f ( x x)))(lambda x ( f ( x x))))))
+
+(comment viero)
+)(lambda x (lambda y (lambda z (z x y)))))
+
+(comment kite)
+)(kestrel ibis))
+
+(comment kestrel)
+)(lambda x (lambda y x)))
+
+
+(comment ibis)
+)(lambda x x))
+
+
+
+
