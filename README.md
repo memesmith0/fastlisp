@@ -37,3 +37,9 @@ another goal coming soon will be to make a binary lambda calculus interpeter in 
 another goal coming soon will be to write a posix compliant interepter for binary lambda calculus and make binary lambda calculus a mster system and to make posix a worker system for fastlisp.
 
 )
+
+update:
+
+I am done developing fastlisp. humanity is to dumb to realize how easy fastlisp is to program in. in hundreds of years humanity will figure out fastlisp and realize that I was correct. it is baffling to me how so many college educated lisp programmers do not understand the trvth of fastlisp.
+
+i am ending fastlisp development i am moving on to fastpyll with guile scheme. this is a much more bloated option but i have no choice.
