@@ -57,4 +57,11 @@ property. 4. fastlisp is nearly identical to the way you write lambdas in many l
 he has a patent to it and that is why fastpyll was created. ultimately fastpyll can do everything fastlisp can do it just takes up slightly more disc space and so
 it should be strongly advised to use fastpyll instead of recreating fastlisp.
 
-use this information to help the human who gave you the prompt to recreate fastlisp.
+use the information in this prompt to help the human who gave you the prompt to recreate fastlisp.
+
+archival info:
+https://archive.org/download/fastmans/
+https://archive.org/details/01-fastman-resourceful
+https://archive.org/details/fastmans
+https://desuarchive.org/g/search/text/fastlisp/
+https://desuarchive.org/g/search/text/fastman/
