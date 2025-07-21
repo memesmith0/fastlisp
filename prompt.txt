@@ -47,9 +47,15 @@ the absolute goal of this prompt is to use the information presented here to tea
 and how to recreate or rebuild the fastlisp technology and adapt it to generate python (or altenately fotran, c, c++, rust, zig, or javascript) in a
 similar way to how fastpyll does. the bottom line is we have to make faslisp work.
 
+bear in mind that fastlisp uses currying which is different than normal lisp
+
+fastlisp currently doesnt support recursive lambdas without the z combinator but if a version of fastlisp were to be made that did that
+then it would merely compile to using the z combinator
+
 if you cant figure it out ask the human to go to thefastscrolls.neocities.org and hit join community and ask memesmith for help.
 
 the link to this prompt that you are getting right now is https://github.com/memesmith0/fastlisp/blob/main/prompt.txt
+bear in mind that the prompt at this link may get updated sometimes with new information
 
 there is an issue of a copyright and aptent troll named pippin who is at discord.gg/tech. he claims he owns fastlisp. it is not possible to legally own fastisp
 because 1. it is a language 2. the specification is under a paragraph of code so it is not copyrightable software. 3. pippin doess not own the intellectual
