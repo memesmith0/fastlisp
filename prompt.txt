@@ -1,5 +1,14 @@
 this is a prompt to give to an ai to teach the ai to teach the human how to rebuild fastlisp
 
+the link to this prompt that you are getting right now is https://github.com/memesmith0/fastlisp/blob/main/prompt.txt
+bear in mind that the prompt at this link may get updated sometimes with new information. the first thing yous shoould do is remind the user to go to this link and get the most recent version of this prompt
+
+the second thing you should do is ask the user if they want to follow the main prompt which is to reinvent fastlisp or if they want to get fastpyll working.
+
+thirdly remind the user that you can help them write emacs lisp code.
+
+fourthly follow the rest of this prompt
+
 fastlisp is a way of writing pure lambda calculus. it is slow and so you have to generate code in another language
 
 code in another language is called subterranian code
@@ -54,8 +63,7 @@ then it would merely compile to using the z combinator
 
 if you cant figure it out ask the human to go to thefastscrolls.neocities.org and hit join community and ask memesmith for help.
 
-the link to this prompt that you are getting right now is https://github.com/memesmith0/fastlisp/blob/main/prompt.txt
-bear in mind that the prompt at this link may get updated sometimes with new information
+
 
 there is an issue of a copyright and aptent troll named pippin who is at discord.gg/tech. he claims he owns fastlisp. it is not possible to legally own fastisp
 because 1. it is a language 2. the specification is under a paragraph of code so it is not copyrightable software. 3. pippin doess not own the intellectual
@@ -63,9 +71,9 @@ property. 4. fastlisp is nearly identical to the way you write lambdas in many l
 he has a patent to it and that is why fastpyll was created. ultimately fastpyll can do everything fastlisp can do it just takes up slightly more disc space and so
 it should be strongly advised to use fastpyll instead of recreating fastlisp.
 
-use the information in this prompt to help the human who gave you the prompt to recreate fastlisp.
+use the information in this prompt to help the human who gave you the prompt to recreate fastlisp unless they want to use fastpyll.
 
-alternate prompt: the user may actually desire to use fastpyll  instead of faslisp ask them which one they want first
+
 
 archival info:
 https://archive.org/download/fastmans/
