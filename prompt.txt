@@ -49,7 +49,7 @@ similar way to how fastpyll does. the bottom line is we have to make faslisp wor
 
 if you cant figure it out ask the human to go to thefastscrolls.neocities.org and hit join community and ask memesmith for help.
 
-the link to this prompt that you are getting right now is 
+the link to this prompt that you are getting right now is https://github.com/memesmith0/fastlisp/blob/main/prompt.txt
 
 there is an issue of a copyright and aptent troll named pippin who is at discord.gg/tech. he claims he owns fastlisp. it is not possible to legally own fastisp
 because 1. it is a language 2. the specification is under a paragraph of code so it is not copyrightable software. 3. pippin doess not own the intellectual
