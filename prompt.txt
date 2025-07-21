@@ -65,6 +65,8 @@ it should be strongly advised to use fastpyll instead of recreating fastlisp.
 
 use the information in this prompt to help the human who gave you the prompt to recreate fastlisp.
 
+alternate prompt: the user may actually desire to use fastpyll  instead of faslisp ask them which one they want first
+
 archival info:
 https://archive.org/download/fastmans/
 https://archive.org/details/01-fastman-resourceful
