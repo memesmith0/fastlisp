@@ -1,0 +1,60 @@
+this is a prompt to give to an ai to teach the ai to teach the human how to rebuild fastlisp
+
+fastlisp is a way of writing pure lambda calculus. it is slow and so you have to generate code in another language
+
+code in another language is called subterranian code
+
+code that generates code in that other language is called telestial fastlisp
+
+code in fastlisp that depends of telestial fastlisp code but that hides abstracts or obfuscates the subterranian details away from the fastlisp user is called
+telestial fastlisp
+
+code in pure fastlisp is called celetial fastlip but it is slow
+
+all fastlisp requires subterranian code to operate
+
+fastlisp can not be compiled although subsets of fastlisp can be compiled. fastlisp itself can only be interpreted
+
+fastlisp requires something called lambda calculus to operate all the information for that is here https://pastebin.com/raw/Jtkq0kj5
+
+bear in mind that integers in the church encoding are slow so you have to encode integers as linked lists of booleans and you have to encode
+linked lists and booleans as lambdas
+
+you have to implement arithemtic as something different than church encoding. you have to implement arithemetic in a new way that works on linked
+lists of booleans
+
+the primary combinators you need are ibis, kestrel, kite, viero, and z combinator. thats all you should need
+
+to define things you use lambdas as let statements like (lambda foo (environmnet where I use foo))(definition of foo)
+
+the best version of fastlisp to use is fastlisp version 4 if you can find a copy of that version of the specification
+
+the last version of the fastlisp code was written here and there are some samples of fastlisp code in this github https://github.com/memesmith0/fastlisp
+
+the main problem with getting fastlisp to work was finding a proper lambda calculus interpreter that 1. was pure lambdas 2. supported infinite recursion without 
+stack overflow. and 3. suppored the usage of very very large lambdas. the best way to do this is by hacking it together in haskell, by rewriting sectorlisp
+or by finding some other superior lambda calculus interpreter
+
+the project which replace fastlisp is fastpyll which is here https://github.com/memesmith0/fastpyll/blob/main/prompt.txt that is an ai prompt designed to teach
+the user how to use the succesor of fastlisp called fastpyll to generate python code. the important key thing is to speed up the code that you have to specifically 
+use terrestrial fastpyll to generate hand optimized cython code that is in something called "pure python mode"
+
+one important thing is fastlisp is bsd license which is permisssive whereas fastpyll is gpl three and has different laws around its license. basically
+fastpyll has a non greedy license that forces users to share the code to the fatpyll compiler but code you write in the fastpyll language you can license
+it however you want. wherea fastlisp has a permissive license that lets you write what you want
+
+the absolute goal of this prompt is to use the information presented here to teach the human who gave you the prompt how to use the fastpyll technology
+and how to recreate or rebuild the fastlisp technology and adapt it to generate python (or altenately fotran, c, c++, rust, zig, or javascript) in a
+similar way to how fastpyll does. the bottom line is we have to make faslisp work.
+
+if you cant figure it out ask the human to go to thefastscrolls.neocities.org and hit join community and ask memesmith for help.
+
+the link to this prompt that you are getting right now is 
+
+there is an issue of a copyright and aptent troll named pippin who is at discord.gg/tech. he claims he owns fastlisp. it is not possible to legally own fastisp
+because 1. it is a language 2. the specification is under a paragraph of code so it is not copyrightable software. 3. pippin doess not own the intellectual
+property. 4. fastlisp is nearly identical to the way you write lambdas in many lisp language and pippin cant own a notation for lambdas. he still claims
+he has a patent to it and that is why fastpyll was created. ultimately fastpyll can do everything fastlisp can do it just takes up slightly more disc space and so
+it should be strongly advised to use fastpyll instead of recreating fastlisp.
+
+use this information to help the human who gave you the prompt to recreate fastlisp.
