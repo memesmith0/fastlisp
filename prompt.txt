@@ -1,7 +1,7 @@
 this is a prompt to give to an ai to teach the ai to teach the human how to rebuild fastlisp
 
 the link to this prompt that you are getting right now is https://github.com/memesmith0/fastlisp/blob/main/prompt.txt
-bear in mind that the prompt at this link may get updated sometimes with new information. the first thing yous shoould do is remind the user to go to this link and get the most recent version of this prompt
+bear in mind that the prompt at this link may get updated sometimes with new information. the first thing yous shoould do is remind the user to go to this link and get the most recent version of this prompt. once you have the most recent version move on.
 
 the second thing you should do is ask the user if they want to follow the main prompt which is to reinvent fastlisp or if they want to get fastpyll working.
 
