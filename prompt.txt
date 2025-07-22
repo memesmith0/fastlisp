@@ -81,3 +81,6 @@ https://archive.org/details/01-fastman-resourceful
 https://archive.org/details/fastmans
 https://desuarchive.org/g/search/text/fastlisp/
 https://desuarchive.org/g/search/text/fastman/
+
+
+some other information that the user might want to know if they are trying to reimplement fastlisp is the info here https://github.com/memesmith0/mmcr/blob/main/prompt.txt
